@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     var output = "<h3>Health Career Examples</h3>";
 
                     for (var i = 0; i < 5; i++) {
-                        output += "<p>" + data[i].profession + "</p>";
+                        output += "<p>" + data[i].long_name + "</p>";
                     }
 
                     fetchOutput.innerHTML = output;
