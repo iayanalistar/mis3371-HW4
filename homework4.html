@@ -30,9 +30,11 @@ Description: Website for patients of ZinoCare Group to register allowing to obta
                     <h1>ZinoCare Group</h1>
                 </td>
     
-                <td align="right">
+               <td align="right">
                     Today is:
-                    <span id="today"></span>
+                        <span id="today"></span>
+                        <br>
+                    <span id="welcomeMessage"></span>
                 </td>
             </tr>
         </table>
@@ -59,6 +61,9 @@ Description: Website for patients of ZinoCare Group to register allowing to obta
                             pattern="[A-Za-z'-]{1,30}"
                                 title="Enter your first name using letters, apostrophes, or dashes only.">
                             <span class="error" id="fnameError"></span>
+                            <br>
+                            <input type="checkbox" id="rememberMe" checked>
+                            <label for="rememberMe">Remember me on this computer</label>
                      </div>
             
                          <div class="name-field">
