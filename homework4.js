@@ -29,6 +29,93 @@ function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
+function saveLocalData() {
+    localStorage.setItem("fname", document.getElementById("fname").value);
+    localStorage.setItem("mi", document.getElementById("mi").value);
+    localStorage.setItem("lname", document.getElementById("lname").value);
+    localStorage.setItem("dob", document.getElementById("dob").value);
+    localStorage.setItem("address1", document.getElementById("address1").value);
+    localStorage.setItem("city", document.getElementById("city").value);
+    localStorage.setItem("state", document.getElementById("state").value);
+    localStorage.setItem("zip", document.getElementById("zip").value);
+    localStorage.setItem("phone", document.getElementById("phone").value);
+    localStorage.setItem("email", document.getElementById("email").value);
+    localStorage.setItem("userid", document.getElementById("userid").value);
+    localStorage.setItem("comments", document.getElementById("comments").value);
+    localStorage.setItem("salary", document.getElementById("salary").value);
+}
+
+function loadLocalData() {
+    if (localStorage.getItem("fname") != null) {
+        document.getElementById("fname").value = localStorage.getItem("fname");
+    }
+
+    if (localStorage.getItem("mi") != null) {
+        document.getElementById("mi").value = localStorage.getItem("mi");
+    }
+
+    if (localStorage.getItem("lname") != null) {
+        document.getElementById("lname").value = localStorage.getItem("lname");
+    }
+
+    if (localStorage.getItem("dob") != null) {
+        document.getElementById("dob").value = localStorage.getItem("dob");
+    }
+
+    if (localStorage.getItem("address1") != null) {
+        document.getElementById("address1").value = localStorage.getItem("address1");
+    }
+
+    if (localStorage.getItem("city") != null) {
+        document.getElementById("city").value = localStorage.getItem("city");
+    }
+
+    if (localStorage.getItem("state") != null) {
+        document.getElementById("state").value = localStorage.getItem("state");
+    }
+
+    if (localStorage.getItem("zip") != null) {
+        document.getElementById("zip").value = localStorage.getItem("zip");
+    }
+
+    if (localStorage.getItem("phone") != null) {
+        document.getElementById("phone").value = localStorage.getItem("phone");
+    }
+
+    if (localStorage.getItem("email") != null) {
+        document.getElementById("email").value = localStorage.getItem("email");
+    }
+
+    if (localStorage.getItem("userid") != null) {
+        document.getElementById("userid").value = localStorage.getItem("userid");
+    }
+
+    if (localStorage.getItem("comments") != null) {
+        document.getElementById("comments").value = localStorage.getItem("comments");
+    }
+
+    if (localStorage.getItem("salary") != null) {
+        document.getElementById("salary").value = localStorage.getItem("salary");
+        document.getElementById("salaryOutput").innerHTML = "$" + localStorage.getItem("salary");
+    }
+}
+
+function clearLocalData() {
+    localStorage.removeItem("fname");
+    localStorage.removeItem("mi");
+    localStorage.removeItem("lname");
+    localStorage.removeItem("dob");
+    localStorage.removeItem("address1");
+    localStorage.removeItem("city");
+    localStorage.removeItem("state");
+    localStorage.removeItem("zip");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userid");
+    localStorage.removeItem("comments");
+    localStorage.removeItem("salary");
+}
+
 function validateFirstName() {
     var x = document.getElementById("fname").value;
 
@@ -409,6 +496,8 @@ function validateForm() {
         deleteCookie("firstName");
         document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
         }
+
+    saveLocalData();   
     }
        
         else {
@@ -430,6 +519,8 @@ document.addEventListener("DOMContentLoaded", function () {
     else {
         document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
     }
+
+        loadLocalData();
     
     document.getElementById("fname").addEventListener("input", validateFirstName);
     document.getElementById("mi").addEventListener("input", validateMI);
@@ -464,6 +555,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             deleteCookie("firstName");
         document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
+            clearLocalData();
             
                     document.getElementById("submitBtn").style.display = "none";
                     document.getElementById("formMessage").innerHTML = "";
