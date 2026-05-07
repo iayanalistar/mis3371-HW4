@@ -1,3 +1,33 @@
+function setCookie(cname, cvalue, days) {
+    var d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var parts = decodedCookie.split(";");
+
+    for (var i = 0; i < parts.length; i++) {
+        var c = parts[i];
+
+        while (c.charAt(0) == " ") {
+            c = c.substring(1);
+        }
+
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+
+    return "";
+}
+
+function deleteCookie(cname) {
+    document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
 function validateFirstName() {
     var x = document.getElementById("fname").value;
@@ -362,14 +392,25 @@ function validateForm() {
     }
 
     
-    if (ok == true) {
+   if (ok == true) {
         
-        document.getElementById("formMessage").innerHTML = "All fields look good. You may submit the form.";
-        document.getElementById("formMessage").style.color = "green";
-        document.getElementById("submitBtn").style.display = "inline-block";
+    document.getElementById("formMessage").innerHTML = "All fields look good. You may submit the form.";
+    document.getElementById("formMessage").style.color = "green";
+    document.getElementById("submitBtn").style.display = "inline-block";
 
-        
+    var rememberBox = document.getElementById("rememberMe");
+    var firstName = document.getElementById("fname").value;
+
+    if (rememberBox.checked == true) {
+        setCookie("firstName", firstName, 2);
+        document.getElementById("welcomeMessage").innerHTML = "Welcome back, " + firstName;
+    }
+    else {
+        deleteCookie("firstName");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
         }
+    }
+       
         else {
             document.getElementById("formMessage").innerHTML = "Please fix these fields:" + badFields;
             document.getElementById("formMessage").style.color = "red";
@@ -379,6 +420,17 @@ function validateForm() {
     return ok;
 }
 document.addEventListener("DOMContentLoaded", function () {
+    
+    var savedName = getCookie("firstName");
+
+    if (savedName != "") {
+        document.getElementById("welcomeMessage").innerHTML = "Welcome back, " + savedName;
+        document.getElementById("fname").value = savedName;
+    }
+    else {
+        document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
+    }
+    
     document.getElementById("fname").addEventListener("input", validateFirstName);
     document.getElementById("mi").addEventListener("input", validateMI);
     document.getElementById("lname").addEventListener("input", validateLastName);
@@ -409,6 +461,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
     if (resetBtn) {
         resetBtn.addEventListener("click",  function () {
+
+            deleteCookie("firstName");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome New User";
+            
                     document.getElementById("submitBtn").style.display = "none";
                     document.getElementById("formMessage").innerHTML = "";
                     document.getElementById("fnameError").innerHTML = "";
