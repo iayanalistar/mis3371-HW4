@@ -484,4 +484,31 @@ document.addEventListener("DOMContentLoaded", function () {
       
             });
  }
+
+ var fetchBtn = document.getElementById("fetchBtn");
+    var fetchOutput = document.getElementById("fetchOutput");
+
+    if (fetchBtn) {
+        fetchBtn.addEventListener("click", function () {
+            fetchOutput.innerHTML = "Loading health careers...";
+
+            fetch("https://api.sampleapis.com/health/professions")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    var output = "<h3>Health Career Examples</h3>";
+
+                    for (var i = 0; i < 5; i++) {
+                        output += "<p>" + data[i].profession + "</p>";
+                    }
+
+                    fetchOutput.innerHTML = output;
+                })
+                .catch(function () {
+                    fetchOutput.innerHTML = "There was a problem loading the health career information.";
+                });
+        });
+    }
+    
 });
